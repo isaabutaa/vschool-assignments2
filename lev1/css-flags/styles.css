@@ -1,0 +1,107 @@
+body {
+    margin: 0;
+    background-color: #444444;
+}
+
+.flag {
+    margin: 10px;
+}
+
+/* France */
+
+.france {
+    height: 200px;
+    width: 300px;
+    display: flex;
+    flex-direction: row;
+}
+
+.france-red, .france-white, .france-blue {
+    height: 100%;
+    width: 33.3%;
+    display: inline-block;
+}
+
+.france-red {
+    background-color: #ed2938;
+}
+
+.france-white {
+    background-color: #ffffff;
+}
+
+.france-blue {
+    background-color: #002495;
+}
+
+/* Germany */
+
+.germany {
+    height: 300px;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+}
+
+.germany-black, .germany-red, .germany-gold {
+    height: 33.3%;
+    width: 100%;
+}
+
+.germany-black {
+    background-color: #000000;
+}
+
+.germany-red {
+    background-color: #de0002;
+}
+
+.germany-gold {
+    background-color: #ffcc00;
+}
+
+/* Madagascar */
+
+.madagascar {
+    height: 200px;
+    width: 300px;
+    display: flex;
+    flex-direction: row;
+}
+
+.madagascar-white {
+    height: 100%;
+    width: 100px;
+    background-color: #ffffff;
+}
+
+.mad-red-green {
+    height: 100%;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+}
+
+.madagascar-red {
+    background-color: #fc3e32;
+    height: 50%;
+    width: 100%;
+}
+
+.madagascar-green {
+    background-color: #007e39;
+    height: 50%;
+    width: 100%;
+}
+
+/* Switzerland */
+
+
+
+/* Sweden */
+/* Gambia */
+/* Japan */
+/* Niger */
+/* Tonga */
+/* Greece */
+/* Maldives */
