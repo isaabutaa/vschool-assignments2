@@ -5,6 +5,8 @@ body {
 
 .flag {
     margin: 10px;
+    display: block;
+    position: relative;
 }
 
 /* France */
@@ -37,8 +39,8 @@ body {
 /* Germany */
 
 .germany {
-    height: 300px;
-    width: 500px;
+    height: 200px;
+    width: 330px;
     display: flex;
     flex-direction: column;
 }
@@ -94,14 +96,152 @@ body {
     width: 100%;
 }
 
-/* Switzerland */
+/* Switzerland -- take a look at this one again to understand the after selector*/
 
+.switzerland {
+    height: 200px;
+    width: 200px;
+    background-color: #ff0002;
+}
 
+.swiss-vertical {
+    background-color: #ffffff;
+    position: relative;
+    height: 133px;
+    width: 30px;
+    top: 33.5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.swiss-vertical::after {
+    background-color: #ffffff;
+    content: "";
+    position: absolute;
+    height: 30px;
+    width: 133px;
+    top: 50%;
+    transform: translateY(-50%);
+    right: -50.5px;
+}
 
 /* Sweden */
+
+.sweden {
+    background-color: #0269A6;
+    height: 200px;
+    width: 315px;
+}
+
+.sweden-horizontal {
+    background-color: #fecc00;
+    height: 39px;
+    width: 315px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.sweden-vertical {
+    background-color: #fecc00;
+    width: 39px;
+    height: 200px;
+    position: absolute;
+    left: 78px;
+}
 /* Gambia */
+
+.gambia {
+    height: 200px;
+    width: 300px;
+}
+
+.gambia-red {
+    background-color: #ce1127;
+    height: 66px;
+    width: 300px;
+}
+
+.gambia-blue {
+    background-color: #0d1d8b;
+    height: 66px;
+    width: 300px;
+}
+
+.gambia-green {
+    background-color: #3b7827;
+    height: 66px;
+    width: 300px;
+}
+
+.gambia-white-one {
+    background-color: #ffffff;
+    position: absolute;
+    height: 11px;
+    width: 300px;
+    top: 66px;
+}
+
+.gambia-white-two {
+    background-color: #ffffff;
+    position: absolute;
+    height: 11px;
+    width: 300px;
+    bottom: 66px;
+}
+
 /* Japan */
+
+.japan {
+    width: 300px;
+    height: 200px;
+    background-color: #ffffff;
+}
+
+.japan-red {
+    background-color: #bc022c;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    position: relative;
+    top: 50px;
+    left: 100px;
+}
+
 /* Niger */
+
+.niger {
+    height: 300px;
+    width: 350px;
+}
+
+.niger-orange {
+    background-color: #e15307;
+    height: 100px;
+    width: 350px;
+}
+
+.niger-white {
+    background-color: #ffffff;
+    height: 100px;
+    width: 350px;
+}
+
+.niger-green {
+    background-color: #10af2a;
+    height: 100px;
+    width: 350px;
+}
+
+.niger-circle {
+    background-color: #e15307;
+    position: absolute;
+    height: 90px;
+    width: 90px;
+    border-radius: 50%;
+    top: 105px;
+    left: 123px;
+}
 /* Tonga */
 /* Greece */
 /* Maldives */
