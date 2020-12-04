@@ -74,13 +74,23 @@ const opponents = [
 // Game functions
 // attack points, player move, opponent move
 let playerAnswer
-function playerMove() {
-    playerAnswer = readlineSync.keyInSelect(["Face Opponent", "See Stats"], "What's your next move?", {cancel: "Quit Game."})
+function willProceed() {
+    const playerChoices = ["Face Opponent", "See Stats"]
+    const moveIndex = readlineSync.keyInSelect(playerChoices, "What's your next move?", {cancel: "Quit Game."})
+    playerAnswer = playerChoices[moveIndex]
 }
 
 let attackPts
 function attack(person) {
     attackPts = Math.floor(Math.random() * person.strengthPoints)
+    person.healthPoints -= attackPts
+}
+
+let battleMove
+function playerMove() {
+    const battleChoices = ["Attack", "See health points"]
+    const battleChoiceIndex = readlineSync.keyInSelect(battleChoices, "It's your turn to attack, or give up.", {cancel: "Surrender"})
+    battleMove = battleChoices[battleChoiceIndex]
 }
 
 // let opponentMove
@@ -91,12 +101,41 @@ let gameOver = false
 
 // Gameplay
 
-while(!gameOver && opponents.length > 1) {
-    playerMove()
-    if(playerAnswer === 0) {
+while(!gameOver) {
+    willProceed()
+    if(playerAnswer === "Face Opponent") {
         console.log(`Get ready to face your next opponent, ${opponents[0].name}!`)
-    } else if(playerMove === 1) {
-        console.log(player)
+        while(opponents[0].healthPoints > 0 && player.healthPoints > 0 && !gameOver) {
+            playerMove()
+            if(battleMove === "Attack") {
+                attack(opponents[0])
+                if(opponents[0].healthPoints < 0) {
+                    if(opponents.length < 1) {
+                        console.log(`Congratulations, ${player.name}! You have defeated all of your opponents! You are now the strongest martial artist. That is, until someone stronger comes along.`)
+                        gameOver = true
+                    }
+                    console.log(`Congratulations! You defeated your opponent ${opponents[0].name}. Let's get ready for your next opponent.`)
+                    opponents.shift()
+                } else if(player.healthPoints < 0) {
+                    console.log(`${player.name}, you have been defeated. GAME OVER.`)
+                    gameOver = true
+                }
+            } else if(battleMove === "See health points") {
+                console.log(`Your current HP is ${player.healthPoints}.`)
+                playerMove()
+            } else {
+                console.log("You have surrendered and quit the game.")
+                gameOver = true
+            }
+        }
+    } else if(playerAnswer === "See Stats") {
+        console.log(`
+        \nHere are your player stats to start with: 
+        \nName: ${player.name}, 
+        Discipline: ${player.discipline}, 
+        Health points: ${player.healthPoints}, 
+        Strength points: ${player.strengthPoints}, 
+        Inventory: ${player.inventory}`)
     } else {
         gameOver = true
         console.log("\nHow could you quit and not see how strong you could've become? Shame... Shame...")
