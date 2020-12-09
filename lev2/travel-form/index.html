@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Form</title>
+</head>
+<body>
+    <h1>Travel Form</h1>
+
+    <p>Please fill out the information below:</p>
+
+    <form name="form">
+        Name:
+        <input type="text" name="firstName" placeholder="First Name" />
+        <input type="text" name="lastName" placeholder="Last Name" />
+
+        Gender:
+        <input type="radio" name="gender" value="Male"/> Male
+        <input type="radio" name="gender" value="Female"/> Female
+        <input type="radio" name="gender" value="Non-binary"/> Non-binary
+
+        Travel Destination:
+        <select name="destination">
+            <option>Select destination:</option>
+            <option value="Kuala Lumpur">Kuala Lumpur</option>
+            <option value="Kathmandu">Kathmandu</option>
+            <option value="Amman">Amman</option>
+        </select>
+
+        Diet Preferences:
+        <input type="checkbox" name="diet" value="Vegetarian"/> Vegetarian
+        <input type="checkbox" name="diet" value="Vegan"/>  Vegan
+        <input type="checkbox" name="diet" value="Lactose-free"/> Lactose-free
+
+        <button>Submit</button>
+    </form>
+    <script src="app.js"></script>
+</body>
+</html>
