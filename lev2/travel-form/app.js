@@ -9,13 +9,13 @@ form.addEventListener("submit", (event) => {
     const gender = form.gender.value
     const destination = form.destination.value
     const diet = []
-    
+
     for(let i = 0; i < form.diet.length; i++) {
         if(form.diet[i].checked) {
             diet.push(form.diet[i].value)
         }
     }
 
-    console.log(firstName, lastName, gender, destination, diet)
+    alert(`Name: ${firstName} ${lastName} \nGender: ${gender} \nDestination: ${destination} \nDiet Preference: ${diet.join("")}`)
 
 })
