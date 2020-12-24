@@ -1,0 +1,139 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.header {
+    grid-column: 1 / -1;
+    grid-row: 1 / 2;
+    text-align: center;
+}
+
+.view-designs {
+    grid-column: 1 / span 3;
+    grid-row: 2 / 3;
+    text-align: center;
+}
+
+.first-section-text {
+    grid-column: 1 / span 3;
+    grid-row: 3 / 4;
+}
+
+.mid-section-text {
+    grid-column: 1 / span 3;
+    grid-row: 4 / 5;
+}
+
+.btm-section-text {
+    grid-column: 1 / span 3;
+    grid-row: 5 / 6;
+}
+
+.other-designs {
+    grid-column: 1 / span 3;
+    grid-row: 7 / 8;
+}
+
+.other-designs nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 5px;
+}
+
+.other-designs > nav > li {
+    list-style-type: none;
+}
+
+.nav {
+    grid-column: 1 / span 3;
+    grid-row: 8 / 9;
+}
+
+.nav nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 5px;
+}
+
+.nav > nav > li {
+    list-style: none;
+}
+
+.empty-div {
+    display: none;
+}
+
+.footer {
+    grid-column: 1 / span 3;
+    grid-row: 6 / 7;
+}
+
+.by-dave-shea {
+    text-align: center;
+}
+
+.icons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.icons > li {
+    list-style: none;
+}
+
+@media only screen and (min-width: 1130px) {
+    .header {
+        grid-column: 1 / span 2;
+    }
+
+    .view-designs {
+        grid-row: 1 / 2;
+        grid-column: 3 / 4;
+    }
+
+    .main-txt {
+        grid-column: 1 / span 2;
+    }
+
+    .first-section-text {
+        grid-row: 2 / 3;
+    }
+
+    .other-designs {
+        grid-row: 2 / 3;
+        grid-column: 3 / 4;
+    }
+
+    .other-designs nav {
+        grid-template-columns: 1fr;
+    }
+
+    .mid-section-text {
+        grid-row: 3 / 4;
+    }
+
+    .nav {
+        grid-row: 3 / 4;
+        grid-column: 3 / 4;
+    }
+
+    .nav nav {
+        grid-template-columns: 1fr;
+    }
+
+    .btm-section-text {
+        grid-row: 4 / 5;
+    }
+
+    .empty-div {
+        display: block;
+        grid-row: 4 / 5;
+        grid-column: 3 / 4;
+    }
+}
