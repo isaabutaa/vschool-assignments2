@@ -1,0 +1,23 @@
+body {
+    text-align: center;
+}
+
+.header {
+    font-family: sans-serif;
+    text-transform: uppercase;
+}
+
+#pokemon-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+#pokemon-list > li {
+    color: blue;
+    list-style: none;
+}
+
+#btn {
+    padding: 3px;
+    background-color: gold;
+}
