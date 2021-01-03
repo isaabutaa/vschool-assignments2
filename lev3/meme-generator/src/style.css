@@ -2,3 +2,36 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr)
 }
+
+.random-meme {
+    width: 500px;
+    height: auto;
+}
+
+.user-meme {
+    position: relative;
+    
+}
+
+.top-txt {
+    -webkit-text-stroke: 2px solid black;
+    color: white;
+    position: absolute;
+    top: 0;
+}
+
+.bottom-txt {
+    -webkit-text-stroke: 2px solid black;
+    color: white;
+    text-transform: uppercase;
+    font-size: 26pt;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    position: absolute;
+    bottom: 0;
+    left: 125px;
+}
+
+.user-meme-img {
+    width: 500px;
+    height: auto;
+}

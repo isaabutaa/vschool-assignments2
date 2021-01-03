@@ -6,7 +6,7 @@ export default function RandomMemeDisplay(props) {
 
     return (
         <div className="api-memes-container">
-            <img src={props.randomMeme.url} alt="" />
+            <img className="random-meme" src={props.randomMeme.url} alt="" />
             {customizeBtn}
         </div>
     )

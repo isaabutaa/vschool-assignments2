@@ -16,13 +16,17 @@ class App extends React.Component {
             },
             apiMemes: [],
             randomMeme: {},
-            willCustomize: false
+            willCustomize: false,
+            edit: false
         }
 
         this.handleRandomMeme = this.handleRandomMeme.bind(this)
         this.handleWillCustomize = this.handleWillCustomize.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.toggleEdit = this.toggleEdit.bind(this)
+        this.handleEdit = this.handleEdit.bind(this)
+        this.handleDelete = this.handleDelete.bind(this)
     }
 
     componentDidMount() {
@@ -71,7 +75,27 @@ class App extends React.Component {
                     bottomTxt: "",
                     img: ""
                 },
+                randomMeme: {},
                 willCustomize: !prevState.willCustomize
+            }
+        })
+    }
+
+    toggleEdit() {
+        this.setState({
+            edit: !this.state.edit
+        })
+    }
+
+    handleEdit(event) {
+       
+    }
+
+    handleDelete(memeIndex) {
+        this.setState(prevState => {
+            prevState.userMemes.splice(memeIndex, 1)
+            return {
+                userMemes: prevState.userMemes
             }
         })
     }
@@ -89,7 +113,7 @@ class App extends React.Component {
                 <WelcomePage handleClick={this.handleRandomMeme} />
                 <RandomMemeDisplay randomMeme={this.state.randomMeme} handleClick={this.handleWillCustomize} />
                 {memeForm}
-                <UserMemes userMemes={this.state.userMemes} />
+                <UserMemes userMemes={this.state.userMemes} toggleEdit={this.toggleEdit} willEdit={this.state.edit} handleEdit={this.handleEdit} handleDelete={this.handleDelete} />
             </div>
         )
     }
