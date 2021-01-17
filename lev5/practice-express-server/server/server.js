@@ -1,31 +1,23 @@
 const express = require("express")
 const app = express()
 
-// Fake data
+// Middleware
+app.use(express.json()) // looks for a request body and turns it into 'req.body'
 
-const people = [
-    {
-        name: "Ragnar Lothbrok",
-        location: "Scandinavia"
-    },
-    {
-        name: "Wonder Woman",
-        location: "Washington DC"
-    },
-    {
-        name: "Lyra Silvertongue",
-        location: "Oxford"
-    },
-    {
-        name: "Harry Potter",
-        location: "Hogwarts"
-    }
-]
+// Routes
+app.use("/movies", require("./routes/movieRouter.js"))
+app.use("/tvshows", require("./routes/tvShowRouter.js"))
+app.use("/games", require("./routes/gameRouter.js"))
+app.use("/todos", require("./routes/todoRouter.js"))
 
-app.get("/people", (req, res) => {
-    res.send(people)
-})
+// Intercepted assignment: // 
+/* app.use("/items", require("./routes/itemRouter.js"))
 
+app.get("/items", (req, res) => {
+    res.send(req.body)
+}) */
+
+// Server listen
 app.listen(9000, () => {
     console.log("The server is running on PORT 9000")
 })
