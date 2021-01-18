@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react"
 import Movie from "./Movie.js"
-import AddMovieForm from "./AddMovieForm"
+import MovieForm from "./MovieForm"
 import axios from "axios"
 
 export default function MovieList(props) {
@@ -39,7 +39,7 @@ export default function MovieList(props) {
     function editMovie(updateObj, movieId) {
         axios.put(`/movies/${movieId}`, updateObj)
             .then(res => {
-                setMovies(prevMovies => prevMovies.map(movie => movie._id === movieId ? res.data : movie))
+                setMovies(prevMovies => prevMovies.map(movie => movie._id !== movieId ? movie : res.data))
             })
             .catch(err => console.log(err))
     }
@@ -47,7 +47,7 @@ export default function MovieList(props) {
     return (
         <div>
             <h3>Movies:</h3>
-            <AddMovieForm btnText="add movie" submit={addMovie} />
+            <MovieForm btnText="add movie" submit={addMovie} />
             {movies.map(movie => 
                 <Movie 
                     key={movie._id} 

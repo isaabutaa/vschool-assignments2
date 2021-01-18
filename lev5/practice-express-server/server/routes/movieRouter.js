@@ -60,7 +60,7 @@ movieRouter.post("/", (req, res) => {
 movieRouter.delete("/:movieId", (req, res) => {
     const movieId = req.params.movieId
     const movieIndex = movies.findIndex(movie => movie._id === movieId)
-    let movieTitle = movies[movieIndex].title
+    const movieTitle = movies[movieIndex].title
     movies.splice(movieIndex, 1)
     res.send(`Successfully deleted ${movieTitle} from the database of movies.`)
 })

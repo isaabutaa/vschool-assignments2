@@ -1,6 +1,6 @@
 import {useState} from "react"
 
-export default function AddMovieForm(props) {
+export default function MovieForm(props) {
     const initInputs = {title: props.title || "", genre: props.genre || ""}
     const [userInputs, setUserInputs] = useState(initInputs)
 

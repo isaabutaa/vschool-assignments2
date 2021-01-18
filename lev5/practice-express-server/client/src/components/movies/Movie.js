@@ -1,5 +1,5 @@
 import {useState} from "react"
-import AddMovieForm from "./AddMovieForm"
+import MovieForm from "./MovieForm"
 
 export default function Movie(props) {
     const {title, genre, _id, editMovie} = props
@@ -16,14 +16,14 @@ export default function Movie(props) {
                     </>
                 :
                     <>
-                        <AddMovieForm 
+                        <MovieForm 
                             btnText="submit edit" 
                             title={title} 
                             genre={genre}
                             _id={_id} 
                             submit={editMovie}
                         />
-                        <button onClick={() => setToggle(!toggle)}>cancel</button>
+                        <button onClick={() => setToggle(!toggle)}>close</button>
                     </>
             }
         </div>
