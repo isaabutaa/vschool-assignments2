@@ -1,21 +1,21 @@
 import {useState} from "react"
 
-export default function AddMovieForm(props) {
-    const initInputs = {title: props.title || "", genre: props.genre || ""}
+export default function AddShowForm(props) {
+    const initInputs = {title: "", genre: ""}
     const [userInputs, setUserInputs] = useState(initInputs)
 
     function handleChange(event) {
         const {name, value} = event.target
-        setUserInputs(prevUserInputs => ({...prevUserInputs, [name]: value}))
+        setUserInputs(prevInputs => ({...prevInputs, [name]: value}))
     }
 
     function handleSubmit(event) {
         event.preventDefault()
-        props.submit(userInputs, props._id)
+        props.addShow(userInputs)
         setUserInputs(initInputs)
     }
 
-    return (
+    return(
         <form onSubmit={handleSubmit}>
             <input 
                 type="text" 
@@ -31,7 +31,7 @@ export default function AddMovieForm(props) {
                 placeholder="Genre" 
                 onChange={handleChange} 
             />
-            <button>{props.btnText}</button>
+            <button>Add show</button>
         </form>
     )
 }

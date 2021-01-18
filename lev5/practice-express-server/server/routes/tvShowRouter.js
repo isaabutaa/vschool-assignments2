@@ -44,7 +44,7 @@ tvShowRouter.route("/")
         const newShow = req.body
         newShow._id = uuidv4()
         tvShows.push(newShow)
-        res.send(`${newShow.title} has been successfully added to the Database.`)
+        res.send(newShow)
     })
 
 tvShowRouter.route("/:showId") 
