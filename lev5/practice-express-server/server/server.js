@@ -19,6 +19,11 @@ app.get("/items", (req, res) => {
     res.send(req.body)
 }) */
 
+// error handling
+app.use((err, req, res, next) => {
+    return res.send({errMsg: err.message})
+})
+
 // Server listen
 app.listen(9000, () => {
     console.log("The server is running on PORT 9000")

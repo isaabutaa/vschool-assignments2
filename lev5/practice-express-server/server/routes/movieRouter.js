@@ -35,16 +35,24 @@ movieRouter.get("/", (req, res) => {
 })
 
 // get one
-movieRouter.get("/:movieId", (req, res) => {
+movieRouter.get("/:movieId", (req, res, next) => {
     const movieId = req.params.movieId
     const foundMovie = movies.find(movie => movie._id === movieId)
+    if(!foundMovie) {
+        const err = new Error(`Cannot find id: ${movieId}`)
+        return next(err)
+    }
     res.send(foundMovie)
 })
 
 // get by genre
-movieRouter.get("/search/genre", (req, res) => {
+movieRouter.get("/search/genre", (req, res, next) => {
     const movieGenre = req.query.genre
     const genreMovies = movies.filter(movie => movie.genre === movieGenre)
+    if(!movieGenre) {
+        const err = new Error("Cannot search: No genre entered")
+        return next(err)
+    }
     res.send(genreMovies)
 })
 
