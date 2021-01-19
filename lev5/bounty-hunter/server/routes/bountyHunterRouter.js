@@ -8,7 +8,7 @@ bounties = [
         firstName: "Anakin",
         lastName: "Skywalker",
         isAlive: true,
-        bountyAmout: 5000,
+        amount: 5000,
         type: "jedi",
         _id: uuidv4()
     },
@@ -16,7 +16,7 @@ bounties = [
         firstName: "Sarumon",
         lastName: "the White",
         isAlive: true,
-        bountyAmout: 7000,
+        amount: 7000,
         type: "sorcerer",
         _id: uuidv4()
     },
@@ -24,7 +24,7 @@ bounties = [
         firstName: "Magneto",
         lastName: null,
         isAlive: true,
-        bountyAmout: 10000,
+        amount: 10000,
         type: "mutant",
         _id: uuidv4()
     }
@@ -39,7 +39,7 @@ bountyHunterRouter.route("/")
         const newBounty = req.body
         newBounty._id = uuidv4()
         bounties.push(newBounty)
-        res.send(`${newBounty.firstName} ${newBounty.lastName} has been added to your list of bounties.`)
+        res.send(newBounty)
     })
 
 bountyHunterRouter.route("/:bountyId")
