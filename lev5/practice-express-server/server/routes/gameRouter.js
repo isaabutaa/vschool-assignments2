@@ -2,35 +2,6 @@ const express = require("express")
 const gameRouter = express.Router()
 const Game = require("../models/game.js")
 
-// Fake data
-// const games = [
-//     {
-//         title: "Dragonball Fighter Z",
-//         type: "melee",
-//         _id: uuidv4()
-//     },
-//     {
-//         title: "Horizon Zero Dawn",
-//         type: "rpg",
-//         _id: uuidv4()
-//     },
-//     {
-//         title: "Fornite",
-//         type: "mmo",
-//         _id: uuidv4()
-//     },
-//     {
-//         title: "Super Smash Bros.",
-//         type: "melee",
-//         _id: uuidv4()
-//     },
-//     {
-//         title: "Shadow of the Colossus",
-//         type: "rpg",
-//         _id: uuidv4()
-//     }
-// ]
-
 // Routes
 
 // get all and post one
@@ -62,18 +33,28 @@ gameRouter.route("/:gameId")
         const foundGame = games.find(game => game._id === gameId)
         res.send(foundGame)
     })
-    .delete((req, res) => {
-        const gameId = req.params.gameId
-        const gameIndex = games.findIndex(game => game._id === gameId)
-        let gameTitle = games[gameIndex].title
-        games.splice(gameIndex, 1)
-        res.send(`Successfully delete ${gameTitle} from the database.`)
+    .delete((req, res, next) => {
+        Game.findOneAndDelete({ _id: req.params.gameId }, (err, deletedGame) => {
+            if(err) {
+                res.status(500)
+                return next(err)
+            }
+            return res.status(200).send(`Deleted ${deletedGame.title} from game database`)
+        })
     })
-    .put((req, res) => {
-        const gameId = req.params.gameId
-        const gameIndex = games.findIndex(game => game._id === gameId)
-        const updatedGame = Object.assign(games[gameIndex], req.body)
-        res.send(updatedGame)
+    .put((req, res, next) => {
+        Game.findOneAndUpdate(
+            { _id: req.params.gameId },
+            req.body,
+            { new: true },
+            (err, updatedGame) => {
+                if(err) {
+                    res.status(500)
+                    return next(err)
+                }
+                return res.status(201).send(updatedGame)
+            }
+        )
     })
 
 // get by type

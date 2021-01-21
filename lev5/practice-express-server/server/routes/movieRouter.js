@@ -61,10 +61,18 @@ movieRouter.delete("/:movieId", (req, res, next) => {
 })
 
 movieRouter.put("/:movieId", (req, res) => {
-    const movieId = req.params.movieId
-    const movieIndex = movies.findIndex(movie => movie._id === movieId)
-    const updatedMovie = Object.assign(movies[movieIndex], req.body)
-    res.send(updatedMovie)
+    Movie.findOneAndUpdate(
+        { _id: req.params.movieId },
+        req.body,
+        { new: true },
+        (err, updatedMovie) => {
+            if(err) {
+                res.status(500)
+                return next(err)
+            }
+            return res.status(201).send(updatedMovie)
+        }
+    )
 })
 
 module.exports = movieRouter

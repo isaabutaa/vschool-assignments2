@@ -29,16 +29,28 @@ todoRouter.route("/:todoId")
     .get((req, res) => {
         res.send(todos.find(todo => todo._id === req.params.todoId))
     })
-    .put((req, res) => {
-        const index = todos.findIndex(todo => todo._id === req.params.todoId)
-        const updatedTodo = Object.assign(todos[index], req.body)
-        res.send(updatedTodo)
+    .put((req, res, next) => {
+        Todo.findOneAndUpdate(
+            { _id: req.params.todoId },
+            req.body,
+            { new: true },
+            (err, updatedItem) => {
+                if(err) {
+                    res.status(500)
+                    return next(err)
+                }
+                return res.status(200).send(updatedItem)
+            }
+        )
     })
-    .delete((req, res) => {
-        const index = todos.findIndex(todo => todo._id === req.params.todoId)
-        const name = todos[index].name
-        todos.splice([index], 1)
-        res.send(`Successfully deleted ${name} from the todo list`)
+    .delete((req, res, next) => {
+        Todo.findOneAndDelete({ _id: req.params.todoId }, (err, deletedItem) => {
+            if(err) {
+                res.status(500)
+                return next(err)
+            }
+            return res.status(200).send(`Deleted ${deletedItem.name} from the todo list`)
+        })
     })
 
 

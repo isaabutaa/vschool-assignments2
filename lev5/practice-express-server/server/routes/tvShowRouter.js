@@ -53,11 +53,19 @@ tvShowRouter.route("/:showId")
             return res.status(200).send(`Deleted ${deletedShow.title} from the TV Show database`)
         })
     })
-    .put((req, res) => {
-        const showId = req.params.showId
-        const showIndex = tvShows.findIndex(show => show._id === showId)
-        const updatedShow = Object.assign(tvShows[showIndex], req.body)
-        res.send(updatedShow)
+    .put((req, res, next) => {
+        TVShow.findOneAndUpdate(
+            { _id: req.params.showId },
+            req.body,
+            { new: true },
+            (err, updatedShow) => {
+                if(err) {
+                    res.status(500)
+                    return next(err)
+                }
+                return res.status(201).send(updatedShow)
+            }
+        )
     })
 
 tvShowRouter.route("/search/genre") 
