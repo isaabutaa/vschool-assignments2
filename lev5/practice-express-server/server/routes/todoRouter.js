@@ -1,39 +1,27 @@
 const express = require("express")
 const todoRouter = express.Router()
-const {v4: uuidv4} = require("uuid")
-
-// fake data
-const todos = [
-    {
-        name: "Read book",
-        description: "Finish first chapter of 'Man's Search for Meaning'",
-        isCompleted: false,
-        _id: uuidv4()
-    },
-    {
-        name: "Exercise",
-        description: "Go to the gym and get your groove on",
-        isCompleted: false,
-        _id: uuidv4()
-    },
-    {
-        name: "Family call",
-        description: "Call Sis and wish her a happy birthday",
-        isCompleted: false,
-        _id: uuidv4()
-    }
-]
+const Todo = require("../models/todo.js")
 
 // routes
 todoRouter.route("/")
-    .get((req, res) => {
-    res.send(todos)
+    .get((req, res, next) => {
+        Todo.find((err, todos) => {
+            if(err) {
+                res.status(500)
+                return next(err)
+            }
+            return res.status(200).send(todos)
+        })
     })
-    .post((req, res) => {
-        const newTodo = req.body
-        newTodo._id === uuidv4()
-        todos.push(newTodo)
-        res.send(`Successfully added ${newTodo.name} to the todo list.`)
+    .post((req, res, next) => {
+        const newTodo = new Todo(req.body)
+        newTodo.save((err, savedTodo) => {
+            if(err) {
+                res.status(500)
+                return next(err)
+            }
+            return res.status(201).send(savedTodo)
+        })
     })
 
 // routes by id
@@ -52,8 +40,6 @@ todoRouter.route("/:todoId")
         todos.splice([index], 1)
         res.send(`Successfully deleted ${name} from the todo list`)
     })
-
-
 
 
 module.exports = todoRouter

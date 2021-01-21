@@ -1,37 +1,18 @@
 const express = require("express")
 const movieRouter = express.Router()
-const {v4: uuidv4} = require("uuid")
-
-// Fake data
-const movies = [
-    {   title: "Harry Potter and the Sorceror's Stone", 
-        genre: "Fantasy",
-        _id: uuidv4()
-    },
-    {   title: "Lord of the Rings: The Fellowship of the Ring", 
-        genre: "Fantasy",
-        _id: uuidv4()
-    },
-    {   title: "John Wick", 
-        genre: "Action",
-        _id: uuidv4()
-    },
-    {   title: "Atomic Blonde", 
-        genre: "Action",
-        _id: uuidv4()
-    },
-    {
-        title: "Mad Max: Fury Road",
-        genre: "Sci-fi",
-        _id: uuidv4()
-    }
-]
+const Movie = require("../models/movie.js")
 
 // Routes
 
 // get all
-movieRouter.get("/", (req, res) => {
-    res.send(movies)
+movieRouter.get("/", (req, res, next) => {
+    Movie.find((err, movies) => {
+        if(err) {
+            res.status(500)
+            return next(err)
+        }
+        return res.status(200).send(movies)
+    })
 })
 
 // get one
@@ -57,20 +38,26 @@ movieRouter.get("/search/genre", (req, res, next) => {
 })
 
 // post one
-movieRouter.post("/", (req, res) => {
-    const newMovie = req.body
-    newMovie._id = uuidv4()
-    movies.push(newMovie)
-    res.send(newMovie)
+movieRouter.post("/", (req, res, next) => {
+    const newMovie = new Movie(req.body)
+    newMovie.save((err, savedMovie) => {
+        if(err) {
+            res.status(500)
+            return next(err)
+        }
+        return res.status(201).send(savedMovie)
+    })
 })
 
 // delete one
-movieRouter.delete("/:movieId", (req, res) => {
-    const movieId = req.params.movieId
-    const movieIndex = movies.findIndex(movie => movie._id === movieId)
-    const movieTitle = movies[movieIndex].title
-    movies.splice(movieIndex, 1)
-    res.send(`Successfully deleted ${movieTitle} from the database of movies.`)
+movieRouter.delete("/:movieId", (req, res, next) => {
+    Movie.findOneAndDelete({ _id: req.params.movieId }, (err, deletedMovie) => {
+        if(err) {
+            res.status(500)
+            return next(err)
+        }
+        return res.status(200).send(`Successfully deleted ${deletedMovie.title} from the movie database.`)
+    })
 })
 
 movieRouter.put("/:movieId", (req, res) => {

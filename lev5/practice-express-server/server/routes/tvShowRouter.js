@@ -1,25 +1,6 @@
 const express = require("express")
 const tvShowRouter = express.Router()
-const {v4: uuidv4} = require("uuid")
-
-// Fake data
-const tvShows = [
-    {
-        title: "Vikings",
-        genre: "Action",
-        _id: uuidv4()
-    },
-    {
-        title: "My Hero Academia",
-        genre: "Anime",
-        _id: uuidv4()
-    },
-    {
-        title: "Stranger Things",
-        genre: "Sci-fi/Fantasy",
-        _id: uuidv4()
-    }
-]
+const TVShow = require("../models/tvShow.js")
 
 // Routes
 
@@ -37,14 +18,24 @@ const tvShows = [
 // An alternative way to write the routes:
 
 tvShowRouter.route("/")
-    .get((req, res) => {  // get all
-        res.send(tvShows)
+    .get((req, res, next) => {  // get all
+        TVShow.find((err, shows) => {
+            if(err) {
+                res.status(500)
+                return next(err)
+            }
+            return res.status(200).send(shows)
+        })
     })
-    .post((req, res) => { //post one
-        const newShow = req.body
-        newShow._id = uuidv4()
-        tvShows.push(newShow)
-        res.send(newShow)
+    .post((req, res, next) => { //post one
+        const newShow = new TVShow(req.body)
+        newShow.save((err, savedShow) => {
+            if(err) {
+                res.status(500)
+                return next(err)
+            }
+            return res.status(201).send(savedShow)
+        })
     })
 
 tvShowRouter.route("/:showId") 
@@ -53,12 +44,14 @@ tvShowRouter.route("/:showId")
         const foundShow = tvShows.find(show => show._id === showId)
         res.send(foundShow)
     })
-    .delete((req, res) => {
-        const showId = req.params.showId
-        const showIndex = tvShows.findIndex(show => show._id === showId)
-        let showTitle = tvShows[showIndex].title
-        tvShows.splice(showIndex, 1)
-        res.send(`Successfully deleted ${showTitle} from the database.`)
+    .delete((req, res, next) => {
+        TVShow.findOneAndDelete({ _id: req.params.showId }, (err, deletedShow) => {
+            if(err) {
+                res.status(500)
+                return next(err)
+            }
+            return res.status(200).send(`Deleted ${deletedShow.title} from the TV Show database`)
+        })
     })
     .put((req, res) => {
         const showId = req.params.showId
