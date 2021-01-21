@@ -28,13 +28,13 @@ movieRouter.get("/:movieId", (req, res, next) => {
 
 // get by genre
 movieRouter.get("/search/genre", (req, res, next) => {
-    const movieGenre = req.query.genre
-    const genreMovies = movies.filter(movie => movie.genre === movieGenre)
-    if(!movieGenre) {
-        const err = new Error("Cannot search: No genre entered")
-        return next(err)
-    }
-    res.send(genreMovies)
+    Movie.find({ genre: req.query.genre }, (err, movies) => {
+        if(err) {
+            res.status(500)
+            return next(err)
+        }
+        return res.status(200).send(movies)
+    })
 })
 
 // post one
@@ -60,7 +60,7 @@ movieRouter.delete("/:movieId", (req, res, next) => {
     })
 })
 
-movieRouter.put("/:movieId", (req, res) => {
+movieRouter.put("/:movieId", (req, res, next) => {
     Movie.findOneAndUpdate(
         { _id: req.params.movieId },
         req.body,
