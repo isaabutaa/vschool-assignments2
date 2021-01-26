@@ -7,10 +7,10 @@ import Public from './components/Public.js'
 import {UserContext} from './context/UserProvider.js'
 
 export default function App(){
-  const { token } = useContext(UserContext)
+  const { token, logout, todos } = useContext(UserContext)
   return (
     <div className="app">
-      <Navbar />
+      <Navbar logout={logout} />
       <Switch>
         <Route 
           exact path="/" 
@@ -18,7 +18,7 @@ export default function App(){
         />
         <Route 
           path="/profile"
-          render={() => <Profile />}
+          render={() => <Profile todos={todos} />}
         />
         <Route 
           path="/public"
