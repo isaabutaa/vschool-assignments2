@@ -1,0 +1,53 @@
+body {
+    margin: 0;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 15px;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-around;
+}
+
+.main-text {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    width: 100%;
+    text-align: center;
+}
+
+.light-text {
+    color: #444444;
+}
+
+.dark-text {
+    color: whitesmoke;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 15px;
+}
+
+.footer > h3 {
+    text-align: center;
+}
+
+.light-theme {
+    color: whitesmoke;
+    background-color: #444444;
+}
+
+.dark-theme {
+
+}
