@@ -18,27 +18,41 @@ function addListItem(e) {
     itemList.append(newListItem)
     formInput.value = ""
 
-    editBtn.addEventListener("click", function() {
-        const editForm = document.createElement("form")
-        const editInput = document.createElement("input")
-        editInput.value = itemDiv.textContent
-        const saveEditBtn = document.createElement("button")
-        saveEditBtn.textContent = "Save Edit"
-
-        itemDiv.style.display = "none"
-        editBtn.style.display = "none"
-        deleteBtn.style.display = "none"
-        editForm.append(editInput, saveEditBtn)
-        newListItem.append(editForm)
-
-        saveEditBtn.addEventListener("click", function() {
-            itemDiv.textContent = editInput.value
-            itemDiv.style.display = "block"
-            editBtn.style.display = "inline-block"
-            deleteBtn.style.display = "inline-block"
-            editForm.remove()
+    editBtn.addEventListener ("click", function(){
+        editBtn.textContent = "save"
+        const newInputBox = document.createElement("input")
+        newInputBox.value=itemDiv.textContent
+        itemDiv.append(newInputBox)
+        
+        newInputBox.addEventListener ("change", function(){
+        const newItems = newInputBox.value
+        editBtn.textContent="edit"
+        itemDiv.textContent = newItems
+        newInputBox.remove()
         })
     })
+
+    // editBtn.addEventListener("click", function() {
+    //     const editForm = document.createElement("form")
+    //     const editInput = document.createElement("input")
+    //     editInput.value = itemDiv.textContent
+    //     const saveEditBtn = document.createElement("button")
+    //     saveEditBtn.textContent = "Save Edit"
+
+    //     itemDiv.style.display = "none"
+    //     editBtn.style.display = "none"
+    //     deleteBtn.style.display = "none"
+    //     editForm.append(editInput, saveEditBtn)
+    //     newListItem.append(editForm)
+
+    //     saveEditBtn.addEventListener("click", function() {
+    //         itemDiv.textContent = editInput.value
+    //         itemDiv.style.display = "block"
+    //         editBtn.style.display = "inline-block"
+    //         deleteBtn.style.display = "inline-block"
+    //         editForm.remove()
+    //     })
+    // })
 
     deleteBtn.addEventListener("click", function() {
         newListItem.remove()
